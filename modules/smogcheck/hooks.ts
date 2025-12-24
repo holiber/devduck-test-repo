@@ -4,14 +4,26 @@
  * Defines installation hooks for the smogcheck test module.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-module.exports = {
+interface InstallContext {
+  workspaceRoot: string;
+  [key: string]: unknown;
+}
+
+interface InstallResult {
+  success: boolean;
+  createdFiles?: string[];
+  message?: string;
+  errors?: string[];
+}
+
+export default {
   /**
    * Install hook: Create smogchecked.txt file in workspace root
    */
-  async 'install'(context) {
+  async 'install'(context: InstallContext): Promise<InstallResult> {
     const smogcheckedPath = path.join(context.workspaceRoot, 'smogchecked.txt');
     const content = `Smogcheck module installed successfully at ${new Date().toISOString()}\nModule: smogcheck\nWorkspace: ${context.workspaceRoot}\n`;
     
@@ -22,10 +34,11 @@ module.exports = {
         createdFiles: ['smogchecked.txt'],
         message: 'Created smogchecked.txt file in workspace root'
       };
-    } catch (error) {
+    } catch (error: unknown) {
+      const err = error as { message?: string };
       return {
         success: false,
-        errors: [`Failed to create smogchecked.txt: ${error.message}`]
+        errors: [`Failed to create smogchecked.txt: ${err.message || String(error)}`]
       };
     }
   }
