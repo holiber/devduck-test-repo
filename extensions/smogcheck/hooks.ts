@@ -6,24 +6,13 @@
 
 import fs from 'fs';
 import path from 'path';
-
-interface InstallContext {
-  workspaceRoot: string;
-  [key: string]: unknown;
-}
-
-interface InstallResult {
-  success: boolean;
-  createdFiles?: string[];
-  message?: string;
-  errors?: string[];
-}
+import type { HookContext, HookResult } from '../../../../projects/devduck/scripts/install/module-hooks.js';
 
 export default {
   /**
    * Install hook: Create smogchecked.txt file in workspace root
    */
-  async 'install'(context: InstallContext): Promise<InstallResult> {
+  async 'install'(context: HookContext): Promise<HookResult> {
     const smogcheckedPath = path.join(context.workspaceRoot, 'smogchecked.txt');
     const content = `Smogcheck module installed successfully at ${new Date().toISOString()}\nModule: smogcheck\nWorkspace: ${context.workspaceRoot}\n`;
     

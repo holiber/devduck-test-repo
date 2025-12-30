@@ -4,7 +4,7 @@ This is a test command file for the smogcheck module.
 
 ## Purpose
 
-This command is used to verify that external repository modules are properly installed and accessible.
+This command is used to verify that external repository extensions are properly installed and accessible.
 
 ## Usage
 
