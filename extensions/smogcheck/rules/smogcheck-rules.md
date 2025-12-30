@@ -4,7 +4,7 @@ This is a test rules file for the smogcheck module.
 
 ## Purpose
 
-These rules are used to verify that external repository modules are properly installed and their rules are merged.
+These rules are used to verify that external repository extensions are properly installed and their rules are merged.
 
 ## Rules
 
